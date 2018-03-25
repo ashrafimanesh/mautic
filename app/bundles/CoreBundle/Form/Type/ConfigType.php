@@ -199,6 +199,29 @@ class ConfigType extends AbstractType
         );
 
         $builder->add(
+            'site_theme',
+            'choice',
+            [
+                'choices'    => ['rtl'=>'rtl', 'ltr'=>'ltr'],
+                'label'      => 'mautic.core.config.form.site.theme',
+                'label_attr' => ['class' => 'control-label'],
+                'attr'       => [
+                    'class'   => 'form-control',
+                    'tooltip' => 'mautic.core.config.form.site.theme.tooltip',
+                ],
+                'empty_value' => false,
+                'constraints' => [
+                    new NotBlank(
+                        [
+                            'message' => 'mautic.core.value.required',
+                        ]
+                    ),
+                ],
+                'data'=> isset($options['data']['site_theme']) ? $options['data']['site_theme'] : 'rtl',
+            ]
+        );
+
+        $builder->add(
             'theme',
             'theme_list',
             [

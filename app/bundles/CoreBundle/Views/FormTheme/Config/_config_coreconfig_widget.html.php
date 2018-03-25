@@ -11,6 +11,8 @@
 $fields    = $form->children;
 $fieldKeys = array_keys($fields);
 $template  = '<div class="col-md-6">{content}</div>';
+/** @var \Mautic\CoreBundle\Templating\Helper\FormHelper $formHelper */
+$formHelper = $view['form'];
 ?>
 
 <?php if (count(array_intersect($fieldKeys, ['site_url', 'update_stability', 'cache_path', 'log_path', 'theme', 'image_path']))): ?>
@@ -20,13 +22,14 @@ $template  = '<div class="col-md-6">{content}</div>';
     </div>
     <div class="panel-body">
         <div class="row">
-            <?php echo $view['form']->rowIfExists($fields, 'site_url', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'webroot', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'update_stability', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'cache_path', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'log_path', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'theme', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'image_path', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'site_url', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'webroot', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'update_stability', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'cache_path', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'log_path', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'theme', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'image_path', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'site_theme', $template); ?>
         </div>
     </div>
 </div>
@@ -39,19 +42,19 @@ $template  = '<div class="col-md-6">{content}</div>';
     </div>
     <div class="panel-body">
         <div class="row">
-            <?php echo $view['form']->rowIfExists($fields, 'default_pagelimit', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'default_timezone', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'locale', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'cached_data_timeout', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'default_pagelimit', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'default_timezone', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'locale', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'cached_data_timeout', $template); ?>
         </div>
 
         <hr class="text-muted" />
 
         <div class="row">
-            <?php echo $view['form']->rowIfExists($fields, 'date_format_full', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'date_format_short', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'date_format_dateonly', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'date_format_timeonly', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'date_format_full', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'date_format_short', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'date_format_dateonly', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'date_format_timeonly', $template); ?>
         </div>
     </div>
 </div>
@@ -64,8 +67,8 @@ $template  = '<div class="col-md-6">{content}</div>';
     </div>
     <div class="panel-body">
         <div class="row">
-            <?php echo $view['form']->rowIfExists($fields, 'cors_restrict_domains', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'cors_valid_domains', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'cors_restrict_domains', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'cors_valid_domains', $template); ?>
         </div>
     </div>
 </div>
@@ -78,8 +81,8 @@ $template  = '<div class="col-md-6">{content}</div>';
     </div>
     <div class="panel-body">
         <div class="row">
-            <?php echo $view['form']->rowIfExists($fields, 'trusted_hosts', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'trusted_proxies', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'trusted_hosts', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'trusted_proxies', $template); ?>
         </div>
 
         <?php if (isset($fields['trusted_hosts'])): ?>
@@ -87,10 +90,10 @@ $template  = '<div class="col-md-6">{content}</div>';
         <?php endif; ?>
 
         <div class="row">
-            <?php echo $view['form']->rowIfExists($fields, 'ip_lookup_service', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'ip_lookup_auth', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'ip_lookup_service', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'ip_lookup_auth', $template); ?>
             <div id="ip_lookup_config_container">
-            <?php echo $view['form']->rowIfExists($fields, 'ip_lookup_config', '<div class="col-md-12">{content}</div>'); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'ip_lookup_config', '<div class="col-md-12">{content}</div>'); ?>
             </div>
         </div>
         <div class="row">
@@ -103,10 +106,10 @@ $template  = '<div class="col-md-6">{content}</div>';
         <hr class="text-muted" />
         <div class="row">
             <?php if (isset($fields['do_not_track_ips'])): ?>
-                    <?php echo $view['form']->rowIfExists($fields, 'do_not_track_ips', $template); ?>
+                    <?php echo $formHelper->rowIfExists($fields, 'do_not_track_ips', $template); ?>
             <?php endif; ?>
             <?php if (isset($fields['do_not_track_bots'])): ?>
-                    <?php echo $view['form']->rowIfExists($fields, 'do_not_track_bots', $template); ?>
+                    <?php echo $formHelper->rowIfExists($fields, 'do_not_track_bots', $template); ?>
             <?php endif; ?>
         </div>
         <?php endif; ?>
@@ -114,22 +117,22 @@ $template  = '<div class="col-md-6">{content}</div>';
         <?php if (isset($fields['transifex_username'])): ?>
         <hr class="text-muted" />
         <div class="row">
-            <?php echo $view['form']->rowIfExists($fields, 'transifex_username', $template); ?>
-            <?php echo $view['form']->rowIfExists($fields, 'transifex_password', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'transifex_username', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'transifex_password', $template); ?>
         </div>
         <?php endif; ?>
 
         <?php if (isset($fields['link_shortener_url'])): ?>
         <hr class="text-muted" />
         <div class="row">
-            <?php echo $view['form']->rowIfExists($fields, 'link_shortener_url', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'link_shortener_url', $template); ?>
         </div>
         <?php endif; ?>
         
         <?php if (isset($fields['max_entity_lock_time'])): ?>
         <hr class="text-muted" />
         <div class="row">
-            <?php echo $view['form']->rowIfExists($fields, 'max_entity_lock_time', $template); ?>
+            <?php echo $formHelper->rowIfExists($fields, 'max_entity_lock_time', $template); ?>
         </div>
         <?php endif; ?>
     </div>

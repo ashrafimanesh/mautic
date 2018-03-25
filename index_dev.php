@@ -14,6 +14,12 @@ use Mautic\Middleware\MiddlewareBuilder;
 
 $loader = require_once __DIR__.'/vendor/autoload.php';
 
+function dd($_)
+{
+    echo '<pre>';
+    call_user_func_array('var_dump', func_get_args());
+    exit;
+}
 /*
  * If you don't want to setup permissions the proper way, just uncomment the following PHP line
  * read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information

@@ -36,7 +36,7 @@ class ConfigMapper
     public function __construct(CoreParametersHelper $parametersHelper, array $restrictedParameters = [])
     {
         $this->parametersHelper     = $parametersHelper;
-        $this->restrictedParameters = RestrictionHelper::prepareRestrictions($restrictedParameters);
+        $this->setRestrictedParameters($restrictedParameters);
     }
 
     /**
@@ -53,7 +53,8 @@ class ConfigMapper
                 throw new BadFormConfigException();
             }
 
-            $forms[$bundle]['parameters'] = $this->mergeWithLocalParameters($forms[$bundle]['parameters']);
+            $mergeWithLocalParameters     = $this->mergeWithLocalParameters($forms[$bundle]['parameters']);
+            $forms[$bundle]['parameters'] = $mergeWithLocalParameters;
         }
 
         return $forms;
@@ -95,5 +96,17 @@ class ConfigMapper
         }
 
         return $formParameters;
+    }
+
+    /**
+     * @param array $restrictedParameters
+     *
+     * @return ConfigMapper
+     */
+    public function setRestrictedParameters($restrictedParameters)
+    {
+        $this->restrictedParameters = RestrictionHelper::prepareRestrictions($restrictedParameters);
+
+        return $this;
     }
 }

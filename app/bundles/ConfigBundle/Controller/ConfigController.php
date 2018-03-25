@@ -38,18 +38,26 @@ class ConfigController extends FormController
         }
 
         $event      = new ConfigBuilderEvent($this->get('mautic.helper.paths'), $this->get('mautic.helper.bundle'));
+        /** @var \Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher $dispatcher */
         $dispatcher = $this->get('event_dispatcher');
         $dispatcher->dispatch(ConfigEvents::CONFIG_ON_GENERATE, $event);
         $fileFields  = $event->getFileFields();
         $formThemes  = $event->getFormThemes();
-        $formConfigs = $this->get('mautic.config.mapper')->bindFormConfigsWithRealValues($event->getForms());
+
+        /** @var \Mautic\ConfigBundle\Mapper\ConfigMapper $configMapper */
+        $configMapper = $this->get('mautic.config.mapper');
+
+        $formConfigs = $this->makeFormConfigs($configMapper, $event);
+
         $doNotChange = $this->coreParametersHelper->getParameter('security.restrictedConfigFields');
 
         $this->mergeParamsWithLocal($formConfigs, $doNotChange);
 
         // Create the form
         $action = $this->generateUrl('mautic_config_action', ['objectAction' => 'edit']);
-        $form   = $this->get('form.factory')->create(
+        /** @var \Symfony\Component\Form\FormFactory $formFactory */
+        $formFactory = $this->get('form.factory');
+        $form        = $formFactory->create(
             'config',
             $formConfigs,
             [
@@ -74,8 +82,7 @@ class ConfigController extends FormController
                     // Dispatch pre-save event. Bundles may need to modify some field values like passwords before save
                     $configEvent = new ConfigEvent($formData, $post);
                     $dispatcher->dispatch(ConfigEvents::CONFIG_PRE_SAVE, $configEvent);
-                    $formValues = $configEvent->getConfig();
-
+                    $formValues  = $configEvent->getConfig();
                     $errors      = $configEvent->getErrors();
                     $fieldErrors = $configEvent->getFieldErrors();
 
@@ -279,5 +286,19 @@ class ConfigController extends FormController
                 }
             }
         }
+    }
+
+    /**
+     * @param $configMapper
+     * @param $event
+     *
+     * @return mixed
+     */
+    protected function makeFormConfigs($configMapper, $event)
+    {
+        $formConfigs                                           = $configMapper->bindFormConfigsWithRealValues($event->getForms());
+        $formConfigs['coreconfig']['parameters']['site_theme'] = $this->coreParametersHelper->getParameter('site_theme');
+
+        return $formConfigs;
     }
 }
