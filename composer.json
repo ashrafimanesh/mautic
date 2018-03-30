@@ -6,6 +6,7 @@
     "autoload": {
         "psr-4": {
             "Mautic\\": "app/bundles/",
+            "Ashrafi\\": "app/localBundles/",
             "MauticPlugin\\": "plugins/",
             "Mautic\\Middleware\\": "app/middlewares/"
         },

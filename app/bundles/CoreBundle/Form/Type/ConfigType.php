@@ -17,6 +17,7 @@ use Mautic\CoreBundle\Form\DataTransformer\ArrayStringTransformer;
 use Mautic\CoreBundle\Helper\LanguageHelper;
 use Mautic\CoreBundle\IpLookup\AbstractLookup;
 use Mautic\CoreBundle\IpLookup\IpLookupFormInterface;
+use MauticPlugin\AshrafiCoreBundle\Helper\SiteThemeHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -202,7 +203,7 @@ class ConfigType extends AbstractType
             'site_theme',
             'choice',
             [
-                'choices'    => ['rtl'=>'rtl', 'ltr'=>'ltr'],
+                'choices'    => SiteThemeHelper::getAll(),
                 'label'      => 'mautic.core.config.form.site.theme',
                 'label_attr' => ['class' => 'control-label'],
                 'attr'       => [

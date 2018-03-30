@@ -26,9 +26,9 @@ $loader = require_once __DIR__.'/app/autoload.php';
 //$loader->unregister();
 //$apcLoader->register(true);
 
-\Mautic\CoreBundle\ErrorHandler\ErrorHandler::register('prod');
+\Ashrafi\CoreBundle\ErrorHandler\ErrorHandler::register('prod');
 
-$kernel = new AppKernel('prod', false);
+$kernel = new LocalAppKernel('prod', false);
 $kernel->loadClassCache();
 
 Stack\run((new MiddlewareBuilder('prod'))->resolve($kernel));
