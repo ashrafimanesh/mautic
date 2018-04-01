@@ -71,6 +71,7 @@
 !/plugins/MauticSocialBundle
 !/plugins/MauticZapierBundle
 !/plugins/index.html
+!/plugins/AshrafiCoreBundle
 
 /themes/*
 !/themes/aurora

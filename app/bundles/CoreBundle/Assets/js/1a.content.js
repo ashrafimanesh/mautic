@@ -229,6 +229,8 @@ Mautic.processPageContent = function (response) {
  * Initiate various functions on page load, manual or ajax
  */
 Mautic.onPageLoad = function (container, response, inModal) {
+
+    alert("RAAAAAA");
     Mautic.initDateRangePicker(container + ' #daterange_date_from', container + ' #daterange_date_to');
 
     //initiate links
@@ -1197,37 +1199,45 @@ Mautic.activateDateTimeInputs = function(el, type) {
         type = 'datetime';
     }
 
+    console.log('jquery',jQuery);
     var format = mQuery(el).data('format');
+    console.log('ramin',jQuery(el).data('toggle'));
+
+
     if (type == 'datetime') {
-        mQuery(el).datetimepicker({
-            format: (format) ? format : 'Y-m-d H:i:s',
-            lazyInit: true,
-            validateOnBlur: false,
-            allowBlank: true,
-            scrollInput: false
-        });
-    } else if(type == 'date') {
-        mQuery(el).datetimepicker({
-            timepicker: false,
-            format: (format) ? format : 'Y-m-d',
-            lazyInit: true,
-            validateOnBlur: false,
-            allowBlank: true,
-            scrollInput: false,
-            closeOnDateSelect: true
-        });
-    } else if (type == 'time') {
-        mQuery(el).datetimepicker({
-            datepicker: false,
-            format: (format) ? format : 'H:i:s',
-            lazyInit: true,
-            validateOnBlur: false,
-            allowBlank: true,
-            scrollInput: false
-        });
+        //jQuery(el).persianDatePicker({
+        //    formatDate:"YYYY-MM-DD 23:59"
+        //});
+         mQuery(el).datetimepicker({
+             format: (format) ? format : 'Y-m-d H:i:s',
+             lazyInit: true,
+             validateOnBlur: false,
+             allowBlank: true,
+             scrollInput: false,
+         });
+    // } else if(type == 'date') {
+    //     mQuery(el).datetimepicker({
+    //         timepicker: false,
+    //         format: (format) ? format : 'Y-m-d',
+    //         lazyInit: true,
+    //         validateOnBlur: false,
+    //         allowBlank: true,
+    //         scrollInput: false,
+    //         closeOnDateSelect: true
+    //     });
+    // } else if (type == 'time') {
+    //     mQuery(el).datetimepicker({
+    //         datepicker: false,
+    //         format: (format) ? format : 'H:i:s',
+    //         lazyInit: true,
+    //         validateOnBlur: false,
+    //         allowBlank: true,
+    //         scrollInput: false
+    //     });
     }
 
-    mQuery(el).addClass('calendar-activated');
+    alert("RRAA");
+    //mQuery(el).addClass('calendar-activated');
 };
 
 /**

@@ -126,6 +126,7 @@ class LeadApiController extends CommonApiController
      */
     public function editEntityAction($id)
     {
+        dd($id);
         if ($existingLead = $this->getExistingLead($this->request->request->all(), $id)) {
             $entity = $this->model->getEntity($id);
             $this->model->mergeLeads($existingLead, $entity, false);

@@ -438,9 +438,11 @@ class LeadController extends FormController
                         unset($data['companies']);
                     }
 
-                    $model->setFieldValues($lead, $data, true);
-
                     //form is valid so process the data
+                    $data['attribution_date']='2017-01-01 12:00:00';
+                    $model->setFieldValues($lead, $data, true);
+                    logData($lead);
+
                     $model->saveEntity($lead);
 
                     if (!empty($companies)) {

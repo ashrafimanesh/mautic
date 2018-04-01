@@ -120,7 +120,7 @@ class FieldModel extends FormModel
             'object'   => 'lead',
         ],
         'attribution_date' => [
-            'type'     => 'datetime',
+            'type'     => 'persianDatetime',
             'fixed'    => true,
             'listable' => true,
             'object'   => 'lead',

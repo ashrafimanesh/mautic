@@ -718,6 +718,7 @@
 	};
 
 	$.fn.datetimepicker = function (opt) {
+		console.log("Define datetimepicker function");
 		var KEY0 = 48,
 			KEY9 = 57,
 			_KEY0 = 96,
@@ -753,7 +754,7 @@
 						}
 						clearTimeout(lazyInitTimer);
 						lazyInitTimer = setTimeout(function () {
-
+							alert("RAMIN1");
 							if (!input.data('xdsoft_datetimepicker')) {
 								createDateTimePicker(input);
 							}
@@ -763,8 +764,10 @@
 						}, 100);
 					});
 			};
+		console.log("LLL",options);
 
 		createDateTimePicker = function (input) {
+			alert("RAMIN3");
 			var datetimepicker = $('<div class="xdsoft_datetimepicker xdsoft_noselect"></div>'),
 				xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
 				datepicker = $('<div class="xdsoft_datepicker active"></div>'),
@@ -1207,6 +1210,8 @@
 				.append(datetimepicker);
 
 			XDSoft_datetime = function () {
+
+				console.log("options",options.lang);
 				var _this = this;
 				_this.now = function (norecursion) {
 					var d = new Date(),
@@ -1229,6 +1234,8 @@
 						d.setHours(time.getHours());
 						d.setMinutes(time.getMinutes());
 					}
+
+
 					return d;
 				};
 
@@ -1948,6 +1955,7 @@
 
 			_xdsoft_datetime.setCurrentTime(getCurrentValue());
 
+			alert("RAMIN4");
 			input
 				.data('xdsoft_datetimepicker', datetimepicker)
 				.on('open.xdsoft focusin.xdsoft mousedown.xdsoft', function (event) {
@@ -1980,12 +1988,15 @@
 						return true;
 					}
 				});
+			alert("RAMIN5");
 		};
 		destroyDateTimePicker = function (input) {
+			alert("RAMIN6");
 			var datetimepicker = input.data('xdsoft_datetimepicker');
 			if (datetimepicker) {
 				datetimepicker.data('xdsoft_datetime', null);
 				datetimepicker.remove();
+				alert("RAMIN7");
 				input
 					.data('xdsoft_datetimepicker', null)
 					.off('.xdsoft');
@@ -2009,6 +2020,7 @@
 				}
 			});
 		return this.each(function () {
+			alert("RAMIN8");
 			var datetimepicker = $(this).data('xdsoft_datetimepicker'), $input;
 			if (datetimepicker) {
 				if ($.type(opt) === 'string') {
@@ -2054,6 +2066,7 @@
 		});
 	};
 	$.fn.datetimepicker.defaults = default_options;
+
 }(jQuery));
 
 function HighlightedDate(date, desc, style) {

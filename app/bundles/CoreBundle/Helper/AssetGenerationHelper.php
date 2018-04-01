@@ -194,6 +194,17 @@ class AssetGenerationHelper
                 }
             }
         }
+        $addTime = function (&$assets) use (&$addTime) {
+            foreach ($assets as &$asset) {
+                if (is_array($asset)) {
+                    $addTime($asset);
+                } else {
+                    $asset .= '?t='.time();
+                }
+            }
+        };
+//        if($env!="prod")
+        $addTime($assets['js']);
 
         return $assets;
     }
