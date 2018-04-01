@@ -22,6 +22,11 @@ function dd($_)
     call_user_func_array('var_dump', func_get_args());
     exit;
 }
+
+function logData($data = null)
+{
+    file_put_contents(__DIR__.'/log.txt', PHP_EOL.json_encode($data), FILE_APPEND | LOCK_EX);
+}
 /*
  * If you don't want to setup permissions the proper way, just uncomment the following PHP line
  * read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information
